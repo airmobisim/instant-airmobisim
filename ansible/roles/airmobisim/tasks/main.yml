@@ -19,14 +19,35 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-- hosts: all
-  become: true
-  roles:
-    - base
-    - omnetpp
-    - sumo
-    - airmobisim
-    - cookiecutter
-    - veins
-    - finish
 
+
+- name: Create default directories
+  become_user: veins
+  file:
+    path: /home/veins/{{item}}
+    state: directory
+    owner: veins
+    group: veins
+    mode: 0755
+  with_items:
+    - src
+
+- name: Clone git
+  become_user: veins
+  git:
+    repo: https://git.cms-labs.org/git/hardes/AirMobiSim.git
+    dest: /home/veins/src/AirMobiSim
+    update: no
+
+- name: Build AirMobiSim
+  become_user: veins
+  shell: |
+    set -exu
+    source ~/.shrc
+
+- name: Execute build.sh
+  ansible.builtin.expect:
+    command: build.sh
+    responses:
+      Question:
+        - Y
