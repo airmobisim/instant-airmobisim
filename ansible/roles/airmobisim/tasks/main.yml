@@ -20,6 +20,35 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
+- name: Install curl
+  apt:
+    state: present
+    name:
+      - curl
+
+- name: make sure pip is present
+  command: pip --version
+  register: cn
+  ignore_errors: yes
+- name: pip non present, install
+  package:
+    name: python-pip
+  become: yes
+  when: cn["failed"]
+- name: upgrade pip
+  command: pip install --upgrade pip 
+  become: yes
+- name: install conan
+  pip:
+    name: conan
+    state: latest
+  become: yes
+
+- name: install pexpect
+  pip:
+    name: pexpect
+    state: latest
+  become: yes
 
 - name: Create default directories
   become_user: veins
@@ -32,22 +61,62 @@
   with_items:
     - src
 
-- name: Clone git
-  become_user: veins
-  git:
-    repo: https://git.cms-labs.org/git/hardes/AirMobiSim.git
-    dest: /home/veins/src/AirMobiSim
-    update: no
+#- name: Clone git
+#  become_user: veins
+#  git:
+#    repo: https://git.cms-labs.org/git/hardes/AirMobiSim.git
+#    dest: /home/veins/src/AirMobiSim
+#    update: no
 
-- name: Build AirMobiSim
+- name: Copy private repository - AirMobiSim
+  become_user: veins
+  copy:
+    src: AirMobiSim
+    dest: /home/veins/src/
+    owner: veins
+    group: veins
+    mode: 0755
+
+- name: Copy private repository - airmobisimVeins
+  become_user: veins
+  copy:
+    src: airmobisimVeins
+    dest: /home/veins/src/
+    owner: veins
+    group: veins
+    mode: 0755
+
+- name: Chmod configure
   become_user: veins
   shell: |
     set -exu
-    source ~/.shrc
+    chmod +x configure
+  args:
+    executable: /bin/bash
+    chdir: /home/veins/src/airmobisimVeins
+
+- name: Set AIRMOBISIMHOME
+  become_user: veins
+  lineinfile:
+    dest: /home/veins/.bashrc
+    line: 'export AIRMOBISIMHOME=$HOME/src/AirMobiSim'
+
+- name: Chmod build
+  become_user: veins
+  shell: |
+    set -exu
+    chmod +x build.sh
+  args:
+    executable: /bin/bash
+    chdir: /home/veins/src/AirMobiSim
 
 - name: Execute build.sh
+  become_user: veins
   ansible.builtin.expect:
-    command: build.sh
+    chdir: /home/veins/src/AirMobiSim
+    command: /bin/bash -c "source /home/veins/.bashrc && ./build.sh"
+    timeout: null
     responses:
+      'Continue?': ''
       Question:
         - Y

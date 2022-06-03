@@ -78,10 +78,16 @@
     dest: /home/veins/src/omnetpp
     state: link
 
-- name: Add to path
+- name: Add to path - sh
   become_user: veins
   lineinfile:
     dest: /home/veins/.shrc
+    line: 'PATH="$PATH:$HOME/src/omnetpp/bin"'
+
+- name: Add to path - bash
+  become_user: veins
+  lineinfile:
+    dest: /home/veins/.bashrc
     line: 'PATH="$PATH:$HOME/src/omnetpp/bin"'
 
 - name: Build OMNeT++
