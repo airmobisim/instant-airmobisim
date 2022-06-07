@@ -99,7 +99,18 @@
   become_user: veins
   lineinfile:
     dest: /home/veins/.bashrc
-    line: 'export AIRMOBISIMHOME=$HOME/src/AirMobiSim'
+    line: 'export AIRMOBISIMHOME=/home/veins/src/AirMobiSim'
+
+#- name: Build airmobisimVeins
+#  become_user: veins
+#  shell: |
+#    set -exu
+#    source ~/.bashrc
+#    ./configure
+#    make -j2
+#  args:
+#    executable: /bin/bash
+#    chdir: /home/veins/src/airmobisimVeins
 
 - name: Chmod build
   become_user: veins
@@ -110,13 +121,18 @@
     executable: /bin/bash
     chdir: /home/veins/src/AirMobiSim
 
+- debug: var=ansible_env
+
+
 - name: Execute build.sh
   become_user: veins
   ansible.builtin.expect:
     chdir: /home/veins/src/AirMobiSim
-    command: /bin/bash -c "source /home/veins/.bashrc && ./build.sh"
+    command: /bin/bash -c "source /home/veins/.bashrc && export AIRMOBISIMHOME=/home/veins/src/AirMobiSim && ./build.sh"
     timeout: null
     responses:
       'Continue?': ''
       Question:
         - Y
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/home/veins/src/omnetpp/bin"
