@@ -20,11 +20,16 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-- name: Install curl
+- name: Install prerequisites
   apt:
     state: present
     name:
       - curl
+      - build-essential
+      - libncursesw5-dev
+      - libreadline-dev
+      - libxmlsec1-dev
+      - llvm
 
 - name: make sure pip is present
   command: pip --version
