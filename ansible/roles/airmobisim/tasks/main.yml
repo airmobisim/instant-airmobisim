@@ -117,13 +117,46 @@
 #    executable: /bin/bash
 #    chdir: /home/veins/src/airmobisimVeins
 
-- name: Chmod build
+- name: install pyenv
+  become_user: veins
+  shell: |
+    set -exu
+    curl https://pyenv.run | bash
+  args:
+    executable: /usr/bin/bash
+    chdir: /home/veins/src/AirMobiSim
+
+- name: insert pyenv lines into .bashrc - 1 / 3
+  become_user: veins
+  lineinfile:
+    dest: /home/veins/.bashrc
+    line: 'export PYENV_ROOT="$HOME/.pyenv"'
+
+- name: insert pyenv lines into .bashrc - 2 / 3
+  become_user: veins
+  lineinfile:
+    dest: /home/veins/.bashrc
+    line: 'export PATH="$PYENV_ROOT/bin:$PATH"'
+
+- name: insert pyenv lines into .bashrc - 3 / 3
+  become_user: veins
+  lineinfile:
+    dest: /home/veins/.bashrc
+    line: 'export PATH="$PYENV_ROOT/shims:$PATH"'
+
+- name: insert poetry into .bashrc
+  become_user: veins
+  lineinfile:
+    dest: /home/veins/.bashrc
+    line: 'export PATH="\$HOME/.poetry/bin:\$PATH"'
+
+- name: chmod build
   become_user: veins
   shell: |
     set -exu
     chmod +x build.sh
   args:
-    executable: /bin/bash
+    executable: /usr/bin/bash
     chdir: /home/veins/src/AirMobiSim
 
 - debug: var=ansible_env
@@ -133,7 +166,7 @@
   become_user: veins
   ansible.builtin.expect:
     chdir: /home/veins/src/AirMobiSim
-    command: /bin/bash -c "source /home/veins/.bashrc && export AIRMOBISIMHOME=/home/veins/src/AirMobiSim && ./build.sh"
+    command: /usr/bin/bash -c "source /home/veins/.bashrc && export AIRMOBISIMHOME=/home/veins/src/AirMobiSim && ./build.sh"
     timeout: null
     responses:
       'Continue?': ''
@@ -141,3 +174,5 @@
         - Y
   environment:
     PATH: "{{ ansible_env.PATH }}:/home/veins/src/omnetpp/bin"
+
+
