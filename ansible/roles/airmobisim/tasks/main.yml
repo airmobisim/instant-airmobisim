@@ -30,6 +30,7 @@
       - libreadline-dev
       - libxmlsec1-dev
       - llvm
+      - libbz2-dev
 
 - name: make sure pip is present
   command: pip --version
