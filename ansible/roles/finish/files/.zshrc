@@ -29,7 +29,16 @@ case "$TERM" in
         ;;
 esac
 
+alias l='ls -la'
 alias ll='ls -la'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+
+export PATH=$PATH:$HOME/src/omnetpp/bin
+export AIRMOBISIMHOME=/home/veins/src/AirMobiSim
+export PYENV_ROOT="$HOME/.pyenv" 
+export PATH="$PYENV_ROOT/bin:$PATH" 
+export PATH="$PYENV_ROOT/shims:$PATH" 
+export PATH="$HOME/.poetry/bin:$PATH"
+
 
