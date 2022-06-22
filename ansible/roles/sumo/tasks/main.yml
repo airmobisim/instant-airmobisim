@@ -76,15 +76,15 @@
     dest: /home/veins/.shrc
     line: 'PATH="$PATH:$HOME/src/sumo/bin"'
 
-- name: Build SUMO
-  become_user: veins
-  shell: |
-    set -exu
-    source ~/.shrc
-    cmake ..
-    make -j2
-  args:
-    executable: /bin/bash
-    chdir: /home/veins/src/sumo/build
-    creates: /home/veins/src/sumo/bin/sumo
+#- name: Build SUMO
+#  become_user: veins
+#  shell: |
+#    set -exu
+#    source ~/.shrc
+#    cmake ..
+#    make -j2
+#  args:
+#    executable: /bin/bash
+#    chdir: /home/veins/src/sumo/build
+#    creates: /home/veins/src/sumo/bin/sumo
 

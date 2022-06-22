@@ -90,18 +90,31 @@
     dest: /home/veins/.bashrc
     line: 'PATH="$PATH:$HOME/src/omnetpp/bin"'
 
-- name: Build OMNeT++
+- name: Disable osgearth
   become_user: veins
   shell: |
     source setenv
     set -exu
     source ~/.shrc
     perl -p -i -e 's/WITH_OSGEARTH=yes/WITH_OSGEARTH=no/' configure.user
-    xvfb-run ./configure
-    make -j2
+
   args:
     executable: /bin/bash
     chdir: /home/veins/src/omnetpp
-    creates: /home/veins/src/omnetpp/bin/opp_run
+
+
+#- name: Build OMNeT++
+#  become_user: veins
+#  shell: |
+#    source setenv
+#    set -exu
+#    source ~/.shrc
+#    perl -p -i -e 's/WITH_OSGEARTH=yes/WITH_OSGEARTH=no/' configure.user
+#    xvfb-run ./configure
+#    make -j2
+#  args:
+#    executable: /bin/bash
+#    chdir: /home/veins/src/omnetpp
+#    creates: /home/veins/src/omnetpp/bin/opp_run
 
 
