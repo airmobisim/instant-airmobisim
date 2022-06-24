@@ -160,20 +160,7 @@
     executable: /bin/bash
     chdir: /home/veins/src/AirMobiSim
 
-- debug: var=ansible_env
 
 
-#- name: Execute build.sh
-#  become_user: veins
-#  ansible.builtin.expect:
-#    chdir: /home/veins/src/AirMobiSim
-#    command: /bin/bash -c "export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH" && export PATH="$PYENV_ROOT/shims:$PATH" && export PATH="\$HOME/.poetry/bin:\$PATH" #&& source /home/veins/.bashrc && export AIRMOBISIMHOME=/home/veins/src/AirMobiSim && ./build.sh"
-#    timeout: null
-#    responses:
-#      'Continue?': ''
-#      Question:
-#        - Y
-#  environment:
-#    PATH: "{{ ansible_env.PATH }}:/home/veins/src/omnetpp/bin"
 
 

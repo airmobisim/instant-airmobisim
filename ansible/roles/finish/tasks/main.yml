@@ -164,6 +164,26 @@
     xvfb-run gsettings set org.gnome.desktop.session idle-delay 0
     xvfb-run gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type "nothing"
 
+- name: Copy buildAll script
+  become_user: veins
+  copy:
+    src: buildAll.sh
+    dest: /home/veins/src/buildAll.sh
+    owner: veins
+    group: veins
+    mode: 0755
+
+
+- name: chmod buildAll script
+  become_user: veins
+  shell: |
+    set -exu
+    chmod +x /home/veins/src/buildAll.sh
+  args:
+    executable: /bin/bash
+    chdir: /home/veins/src/AirMobiSim
+
+
 - name: Script for graphical login
   become_user: veins
   copy:
@@ -175,24 +195,8 @@
         gnome-help &
         touch .veins-first-login
 
-        echo "Please wait while OMNeT++ and SUMO are being built..."
-
-        # Build OMNeT++
-        cd /home/veins/src/omnetpp
-        source setenv
-        ./configure
-        make -j${nproc}
-
-        # Build SUMO
-        cd /home/veins/src/sumo
-        export SUMO_HOME="$PWD"
-        mkdir build/cmake-build && cd build/cmake-build
-        cmake ../..
-        make -j${nproc}
-
-        # Build AirMobiSim
-        cd /home/veins/src/AirMobiSim
-        ./build.sh
+        # Open new terminal and execute the build script
+        gnome-terminal -- sh -c "bash -c \"cd /home/veins/src/ && ./buildAll.sh; exec bash\""
 
       fi
     dest: /home/veins/.gnomerc
