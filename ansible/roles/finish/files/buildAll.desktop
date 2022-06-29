@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=RunBuildScript
+Comment=Runs the build script to build OMNeT++, SUMO and AirMobiSim
+Exec=gnome-terminal -- sh -c "bash -c \"cd /home/veins/src/ && ./buildAll.sh; exec bash\""
+StartupNotify=false
+Terminal=false
+Hidden=false
+Categories=Application;

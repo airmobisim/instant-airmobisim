@@ -46,8 +46,8 @@
       "ssh_password": "veins",
       "ssh_wait_timeout": "10000s",
       "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "4096" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "8" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ],
         [ "modifyvm", "{{.Name}}", "--vram", "128" ]
       ],
       "vboxmanage_post": [

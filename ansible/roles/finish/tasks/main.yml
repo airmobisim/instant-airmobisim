@@ -31,6 +31,7 @@
     mode: 0755
   with_items:
     - .local/share/applications
+    - .config/autostart
 
 - name: Install base packages
   apt:
@@ -173,6 +174,22 @@
     group: veins
     mode: 0755
 
+#- name: Autostart directory for buildAll.desktop file
+#  file:
+#    path: /home/veins/.config/autostart
+#    state: directory
+#    owner: veins
+#    group: veins
+#    mode: 0755
+
+- name: Copy buildAll.desktop file
+  become_user: veins
+  copy:
+    src: buildAll.desktop
+    dest: /home/veins/.config/autostart/buildAll.desktop
+    owner: veins
+    group: veins
+    mode: 0755
 
 - name: chmod buildAll script
   become_user: veins
@@ -196,7 +213,7 @@
         touch .veins-first-login
 
         # Open new terminal and execute the build script
-        gnome-terminal -- sh -c "bash -c \"cd /home/veins/src/ && ./buildAll.sh; exec bash\""
+        #gnome-terminal -- sh -c "bash -c \"cd /home/veins/src/ && ./buildAll.sh; exec bash\""
 
       fi
     dest: /home/veins/.gnomerc

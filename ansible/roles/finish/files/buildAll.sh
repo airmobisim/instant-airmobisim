@@ -19,3 +19,8 @@ make -j${nproc}
 # Build AirMobiSim
 cd /home/veins/src/AirMobiSim
 ./build.sh
+
+# Clean up after installation was successful - Remove buildAll.desktop file
+rm /home/veins/.config/autostart/buildAll.desktop
+
+echo "Successfully set up the Virtual Machine! You can now start using it."
