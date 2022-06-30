@@ -1,6 +1,6 @@
 ---
 #
-# Ansible Playbook for building Instant Veins
+# Ansible Playbook for building Instant AirMobiSim
 # Copyright (C) 2018 Christoph Sommer <sommer@ccs-labs.org>
 #
 # Documentation for this template is at http://veins.car2x.org/
@@ -57,108 +57,97 @@
   become: yes
 
 - name: Create default directories
-  become_user: veins
+  become_user: airmobisim
   file:
-    path: /home/veins/{{item}}
+    path: /home/airmobisim/{{item}}
     state: directory
-    owner: veins
-    group: veins
+    owner: airmobisim
+    group: airmobisim
     mode: 0755
   with_items:
     - src
 
 #- name: Clone git
-#  become_user: veins
+#  become_user: airmobisim
 #  git:
 #    repo: https://git.cms-labs.org/git/hardes/AirMobiSim.git
-#    dest: /home/veins/src/AirMobiSim
+#    dest: /home/airmobisim/src/AirMobiSim
 #    update: no
 
 - name: Copy private repository - AirMobiSim
-  become_user: veins
+  become_user: airmobisim
   copy:
     src: AirMobiSim
-    dest: /home/veins/src/
-    owner: veins
-    group: veins
+    dest: /home/airmobisim/src/
+    owner: airmobisim
+    group: airmobisim
     mode: 0755
 
 - name: Copy private repository - airmobisimVeins
-  become_user: veins
+  become_user: airmobisim
   copy:
     src: airmobisimVeins
-    dest: /home/veins/src/
-    owner: veins
-    group: veins
+    dest: /home/airmobisim/src/
+    owner: airmobisim
+    group: airmobisim
     mode: 0755
 
 - name: Chmod configure
-  become_user: veins
+  become_user: airmobisim
   shell: |
     set -exu
     chmod +x configure
   args:
     executable: /bin/bash
-    chdir: /home/veins/src/airmobisimVeins
+    chdir: /home/airmobisim/src/airmobisimVeins
 
 - name: Set AIRMOBISIMHOME
-  become_user: veins
+  become_user: airmobisim
   lineinfile:
-    dest: /home/veins/.bashrc
-    line: 'export AIRMOBISIMHOME=/home/veins/src/AirMobiSim'
-
-#- name: Build airmobisimVeins
-#  become_user: veins
-#  shell: |
-#    set -exu
-#    source ~/.bashrc
-#    ./configure
-#    make -j2
-#  args:
-#    executable: /bin/bash
-#    chdir: /home/veins/src/airmobisimVeins
+    dest: /home/airmobisim/.bashrc
+    line: 'export AIRMOBISIMHOME=/home/airmobisim/src/AirMobiSim'
 
 - name: install pyenv
-  become_user: veins
+  become_user: airmobisim
   shell: |
     set -exu
     curl https://pyenv.run | bash
   args:
     executable: /bin/bash
-    chdir: /home/veins/src/AirMobiSim
+    chdir: /home/airmobisim/src/AirMobiSim
 
 - name: insert pyenv lines into .bashrc - 1 / 3
-  become_user: veins
+  become_user: airmobisim
   lineinfile:
-    dest: /home/veins/.bashrc
+    dest: /home/airmobisim/.bashrc
     line: 'export PYENV_ROOT="$HOME/.pyenv"'
 
 - name: insert pyenv lines into .bashrc - 2 / 3
-  become_user: veins
+  become_user: airmobisim
   lineinfile:
-    dest: /home/veins/.bashrc
+    dest: /home/airmobisim/.bashrc
     line: 'export PATH="$PYENV_ROOT/bin:$PATH"'
 
 - name: insert pyenv lines into .bashrc - 3 / 3
-  become_user: veins
+  become_user: airmobisim
   lineinfile:
-    dest: /home/veins/.bashrc
+    dest: /home/airmobisim/.bashrc
     line: 'export PATH="$PYENV_ROOT/shims:$PATH"'
 
 - name: insert poetry into .bashrc
-  become_user: veins
+  become_user: airmobisim
   lineinfile:
-    dest: /home/veins/.bashrc
+    dest: /home/airmobisim/.bashrc
     line: 'export PATH="\$HOME/.poetry/bin:\$PATH"'
 
 - name: chmod build
-  become_user: veins
+  become_user: airmobisim
   shell: |
     set -exu
     chmod +x build.sh
   args:
     executable: /bin/bash
-    chdir: /home/veins/src/AirMobiSim
+    chdir: /home/airmobisim/src/AirMobiSim
 
 
 
