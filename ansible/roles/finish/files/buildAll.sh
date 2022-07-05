@@ -4,23 +4,23 @@ read -p "Continue?"
 echo "Please wait while OMNeT++, SUMO and AirMobiSim are being built..."
 
 # Build OMNeT++
-cd /home/veins/src/omnetpp
+cd /home/airmobisim/src/omnetpp
 source setenv
 ./configure
 make -j${nproc}
 
 # Build SUMO
-cd /home/veins/src/sumo
+cd /home/airmobisim/src/sumo
 export SUMO_HOME="$PWD"
 mkdir build/cmake-build && cd build/cmake-build
 cmake ../..
 make -j${nproc}
 
 # Build AirMobiSim
-cd /home/veins/src/AirMobiSim
+cd /home/airmobisim/src/AirMobiSim
 ./build.sh
 
 # Clean up after installation was successful - Remove buildAll.desktop file
-rm -f /home/veins/.config/autostart/buildAll.desktop
+rm -f /home/airmobisim/.config/autostart/buildAll.desktop
 
 echo "Successfully set up the Virtual Machine! You can now start using it."
