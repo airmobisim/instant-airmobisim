@@ -1,7 +1,9 @@
 ---
 #
 # Ansible Playbook for building Instant AirMobiSim
-# Copyright (C) 2018 Christoph Sommer <sommer@ccs-labs.org>
+# Copyright (C) 2022 Simon Welzel <simon.welzel@uni-paderborn.de>
+# Copyright (C) 2022 Tobias Hardes <tobias.hardes@uni-paderborn.de>
+# Copyright (C) 2018-2022 Christoph Sommer <sommer@ccs-labs.org>
 #
 # Documentation for this template is at http://veins.car2x.org/
 #
