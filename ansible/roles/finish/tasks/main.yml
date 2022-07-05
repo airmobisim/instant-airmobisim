@@ -59,13 +59,9 @@
 - name: Copy background picture
   become_user: airmobisim
   copy:
-<<<<<<< HEAD
-    src: "veins-background.jpg"
-    dest: "/home/airmobisim/Documents/veins-background.jpg"
-=======
     src: "airmobisim-background.png"
     dest: "/home/veins/Documents/airmobisim-background.png"
->>>>>>> d02bad8... Replace background image
+
     mode: 0644
 
 - name: Background
