@@ -60,7 +60,7 @@
   become_user: airmobisim
   copy:
     src: "airmobisim-background.png"
-    dest: "/home/veins/Documents/airmobisim-background.png"
+    dest: "/home/airmobisim/Documents/airmobisim-background.png"
 
     mode: 0644
 
@@ -68,7 +68,7 @@
   become_user: airmobisim
   shell: |
     set -exu
-    xvfb-run gsettings set org.gnome.desktop.background picture-uri 'file:///home/veins/Documents/airmobisim-background.png'
+    xvfb-run gsettings set org.gnome.desktop.background picture-uri 'file:///home/airmobisim/Documents/airmobisim-background.png'
 
 
 - name: Disable Screensaver
