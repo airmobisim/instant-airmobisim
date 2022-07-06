@@ -1,0 +1,129 @@
+---
+#
+# Ansible Playbook for building Instant AirMobiSim
+# Copyright (C) 2022 Simon Welzel <simon.welzel@uni-paderborn.de>
+# Copyright (C) 2022 Tobias Hardes <tobias.hardes@uni-paderborn.de>
+# Copyright (C) 2018-2022 Christoph Sommer <sommer@ccs-labs.org>
+#
+# Documentation for this template is at http://veins.car2x.org/
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+
+- name: Install base packages
+  apt:
+    state: present
+    name:
+      - xterm
+      - clang-format
+      - uncrustify
+      - valgrind
+      - gdb
+      - lldb
+      - doxygen
+      - graphviz
+      - nemiver
+
+- name: Create default directories
+  become_user: airmobisim
+  file:
+    path: /home/airmobisim/{{item}}
+    state: directory
+    owner: airmobisim
+    group: airmobisim
+    mode: 0755
+  with_items:
+    - src
+
+- name: Clone git
+  become_user: airmobisim
+  git:
+    repo: https://github.com/sommer/veins.git
+    dest: /home/airmobisim/src/veins
+    update: no
+
+- name: Prepare branch
+  become_user: airmobisim
+  shell: |
+    set -exu
+    git checkout -B veins-{{ veins_version }}-work {{ veins_version }}
+  args:
+    executable: /bin/bash
+    chdir: /home/airmobisim/src/veins
+
+#- name: Build Veins
+#  become_user: airmobisim
+#  shell: |
+#    set -exu
+#    source ~/.shrc
+#    ./configure
+#    make -j2
+#  args:
+#    executable: /bin/bash
+#    chdir: /home/airmobisim/src/veins
+#    creates: /home/airmobisim/src/veins/src/libveins.so
+
+- name: Build Veins Doxygen
+  become_user: airmobisim
+  shell: |
+    set -exu
+    source ~/.shrc
+    make doxy
+  args:
+    executable: /bin/bash
+    chdir: /home/airmobisim/src/veins
+    creates: /home/airmobisim/src/veins/doc/doxy/index.html
+
+#- name: Build Veins_INET
+#  become_user: airmobisim
+#  shell: |
+#    set -exu
+#    source ~/.shrc
+#    ./configure
+#    make -j2
+#  args:
+#    executable: /bin/bash
+#    chdir: /home/airmobisim/src/veins/subprojects/veins_inet
+#    creates: /home/airmobisim/src/veins/subprojects/veins_inet/src/libveins_inet.so
+
+#- name: Import Veins into Workspace
+#  become_user: airmobisim
+#  shell: |
+#    set -exu
+#    source ~/.shrc
+#    xvfb-run ~/src/omnetpp/ide/omnetpp -data ~/workspace.omnetpp -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import .
+#  args:
+#    executable: /bin/bash
+#    chdir: /home/airmobisim/src/veins
+#    creates: /home/airmobisim/workspace.omnetpp/.metadata/.plugins/org.eclipse.core.resources/.projects/veins
+
+#- name: Import Veins_INET into Workspace
+#  become_user: airmobisim
+#  shell: |
+#    set -exu
+#    source ~/.shrc
+#    xvfb-run ~/src/omnetpp/ide/omnetpp -data ~/workspace.omnetpp -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import .
+#  args:
+#    executable: /bin/bash
+#    chdir: /home/airmobisim/src/veins/subprojects/veins_inet
+#    creates: /home/airmobisim/workspace.omnetpp/.metadata/.plugins/org.eclipse.core.resources/.projects/veins_inet
+
+- name: Add setenv script
+  become_user: airmobisim
+  lineinfile:
+    dest: /home/airmobisim/.shrc
+    line: 'cd "$HOME/src/airmobisim" && . ./setenv > /dev/null; cd - > /dev/null'
+
