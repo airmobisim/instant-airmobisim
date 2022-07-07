@@ -3,6 +3,8 @@ echo "This script builds OMNeT++, SUMO and AirMobiSim. This step is required."
 read -p "Continue?" 
 echo "Please wait while OMNeT++, SUMO and AirMobiSim are being built..."
 
+source //home/airmobisim/.bashrc
+
 # Build OMNeT++
 cd /home/airmobisim/src/omnetpp
 source setenv
@@ -33,6 +35,7 @@ cd /home/airmobisim/src/AirMobiSim_libveins
 git pull
 cd /home/airmobisim/src/AirMobiSim
 git pull
+source setenv
 ./build.sh
 
 # Clean up after installation was successful - Remove buildAll.desktop file
