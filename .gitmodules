@@ -1,0 +1,3 @@
+[submodule "ansible/roles/airmobisim/files/AirMobiSim_libveins"]
+	path = ansible/roles/airmobisim/files/AirMobiSim_libveins
+	url = https://git.cms-labs.org/git/hardes/AirMobiSim_libveins.git
