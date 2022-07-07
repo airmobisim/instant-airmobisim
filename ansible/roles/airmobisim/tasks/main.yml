@@ -85,10 +85,10 @@
     group: airmobisim
     mode: 0755
 
-- name: Copy private repository - airmobisimVeins
+- name: Copy private repository - AirMobiSim_libveins
   become_user: airmobisim
   copy:
-    src: airmobisimVeins
+    src: AirMobiSim_libveins 
     dest: /home/airmobisim/src/
     owner: airmobisim
     group: airmobisim
@@ -101,7 +101,7 @@
     chmod +x configure
   args:
     executable: /bin/bash
-    chdir: /home/airmobisim/src/airmobisimVeins
+    chdir: /home/airmobisim/src/AirMobiSim_libveins
 
 - name: Set AIRMOBISIMHOME
   become_user: airmobisim

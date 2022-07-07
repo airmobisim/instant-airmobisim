@@ -29,7 +29,7 @@ cd /home/airmobisim/src/veins/subprojects/veins_inet
 xvfb-run ~/src/omnetpp/ide/omnetpp -data ~/workspace.omnetpp -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import .
 
 # Build AirMobiSim
-cd /home/airmobisim/src/airmobisimVeins
+cd /home/airmobisim/src/AirMobiSim_libveins
 git pull
 cd /home/airmobisim/src/AirMobiSim
 git pull
