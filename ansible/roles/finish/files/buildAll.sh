@@ -7,19 +7,19 @@ echo "Please wait while OMNeT++, SUMO and AirMobiSim are being built..."
 cd /home/airmobisim/src/omnetpp
 source setenv
 ./configure
-make -j${nproc}
+make -j$(( $(nproc) - 1 ))
 
 # Build SUMO
 cd /home/airmobisim/src/sumo
 export SUMO_HOME="$PWD"
 mkdir build/cmake-build && cd build/cmake-build
 cmake ../..
-make -j${nproc}
+make -j$(( $(nproc) - 1 ))
 
 # Build Veins
 cd /home/airmobisim/src/veins
 ./configure
-make -j${nproc}
+make -j$(( $(nproc) - 1 ))
 
 # Import Veins into Workspace
 xvfb-run ~/src/omnetpp/ide/omnetpp -data ~/workspace.omnetpp -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import .
