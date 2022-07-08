@@ -103,7 +103,6 @@
     chmod +x /home/airmobisim/src/buildAll.sh
   args:
     executable: /bin/bash
-    chdir: /home/airmobisim/src/AirMobiSim
 
 
 - name: Script for graphical login
