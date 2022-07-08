@@ -40,6 +40,7 @@
       - tig
       - clang
       - ccache
+      - htop
 
 - name: Configure user
   user:
