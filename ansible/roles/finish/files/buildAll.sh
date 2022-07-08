@@ -35,10 +35,13 @@ cd /home/airmobisim/src/veins/subprojects/veins_inet
 xvfb-run ~/src/omnetpp/ide/omnetpp -data ~/workspace.omnetpp -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -import .
 
 # Build AirMobiSim
-cd /home/airmobisim/src/AirMobiSim_libveins
-git pull
+cd /home/airmobisim/src/
+rm -rf AirMobiSim_libveins
+rm -rf AirMobiSim
+git clone https://github.com/airmobisim/AirMobiSim_libveins
+git clone https://github.com/airmobisim/AirMobiSim.git
 cd /home/airmobisim/src/AirMobiSim
-git pull
+
 source setenv
 ./build.sh -y
 
@@ -47,4 +50,3 @@ rm -f /home/airmobisim/.config/autostart/buildAll.desktop
 
 echo "Successfully set up the Virtual Machine! You can now start using it."
 read -p "Press Enter to proceed." 
-exit
