@@ -1,4 +1,4 @@
-Packer Template for building Instant Veins.
+Packer Template for building Instant AirMobiSim.
 
 This template may need a number of files to be present in the files/ subdirectory.
 See files/SHA1SUMS for a full list.

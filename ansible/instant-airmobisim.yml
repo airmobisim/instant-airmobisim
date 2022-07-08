@@ -23,6 +23,12 @@
 #
 
 
-- name: restart sshd
-  service: name=ssh state=restarted
+- hosts: all
+  become: true
+  roles:
+    - base
+    - omnetpp
+    - sumo
+    - airmobisim
+    - finish
 

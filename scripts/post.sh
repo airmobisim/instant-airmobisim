@@ -2,8 +2,8 @@
 
 set -exu
 
-echo "==> Remove user veins from password-less sudoers"
-rm /etc/sudoers.d/veins
+echo "==> Remove user airmobisim from password-less sudoers"
+rm /etc/sudoers.d/airmobisim
 
 echo "==> Clean apt"
 apt-get -y autoremove --purge
@@ -29,3 +29,5 @@ rm -f /EMPTY
 
 echo '==> Sync'
 sync
+
+

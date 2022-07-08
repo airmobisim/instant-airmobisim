@@ -1,5 +1,5 @@
 ---
-omnetpp_tarball_url: https://github.com/omnetpp/omnetpp/releases/download/omnetpp-5.7/omnetpp-5.7-linux-x86_64.tgz
-omnetpp_tarball_filename: omnetpp-5.7-linux-x86_64.tgz
-omnetpp_tarball_sha1: c21840964fe4382374faaecf1af2c58bd0a65613
-omnetpp_dir: omnetpp-5.7
+omnetpp_tarball_url: https://github.com/omnetpp/omnetpp/releases/download/omnetpp-6.0/omnetpp-6.0-linux-x86_64.tgz
+omnetpp_tarball_filename: omnetpp-6.0-linux-x86_64.tgz
+omnetpp_tarball_sha1: 8c830f9ac8f7e552d25941cd0bba9b6e5c6017ee
+omnetpp_dir: omnetpp-6.0

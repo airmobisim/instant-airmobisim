@@ -1,6 +1,6 @@
 {
   "_comment": [
-    "Packer Template for building Instant Veins",
+    "Packer Template for building Instant AirMobiSim",
     "Copyright (C) 2018 Christoph Sommer <sommer@ccs-labs.org>",
     "",
     "Documentation for this template is at http://veins.car2x.org/",
@@ -22,32 +22,32 @@
   ],
 
   "variables": {
-    "version": "5.2-i1"
+    "version": "1.0.0"
   },
 
   "builders": [
     {
       "type": "virtualbox-iso",
       "iso_urls": [
-        "files/debian-11.1.0-amd64-netinst.iso",
-        "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.1.0-amd64-netinst.iso"
+        "files/debian-11.3.0-amd64-netinst.iso",
+        "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.3.0-amd64-netinst.iso"
       ],
-      "iso_checksum": "8488abc1361590ee7a3c9b00ec059b29dfb1da40f8ba4adf293c7a30fa943eb2",
+      "iso_checksum": "7892981e1da216e79fb3a1536ce5ebab157afdd20048fe458f2ae34fbc26c19b",
       "iso_checksum_type": "sha256",
       "headless": true,
       "disk_size": "20480",
       "guest_additions_mode": "disable",
       "guest_os_type": "Debian_64",
       "post_shutdown_delay": "1m",
-      "shutdown_command": "echo 'veins' | sudo -S shutdown -P now",
+      "shutdown_command": "echo 'airmobisim' | sudo -S shutdown -P now",
       "boot_wait": "5s",
       "http_directory": "scripts",
-      "ssh_username": "veins",
-      "ssh_password": "veins",
+      "ssh_username": "airmobisim",
+      "ssh_password": "airmobisim",
       "ssh_wait_timeout": "10000s",
       "vboxmanage": [
         [ "modifyvm", "{{.Name}}", "--memory", "4096" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "2" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "4" ],
         [ "modifyvm", "{{.Name}}", "--vram", "128" ]
       ],
       "vboxmanage_post": [
@@ -61,17 +61,17 @@
         "locale=en_US.UTF-8 ",
         "kbd-chooser/method=us ",
         "keyboard-configuration/xkb-keymap=us ",
-        "netcfg/get_hostname=instant-veins ",
+        "netcfg/get_hostname=instant-airmobisim ",
         "netcfg/get_domain=car2x.org ",
         "<enter>"
       ],
       "format": "ova",
-      "output_directory": "output/instant-veins-{{user `version`}}",
-      "vm_name": "instant-veins-{{user `version`}}",
+      "output_directory": "output/instant-airmobisim-{{user `version`}}",
+      "vm_name": "instant-airmobisim-{{user `version`}}",
       "export_opts": [
         "--manifest",
         "--vsys", "0",
-        "--description", "Instant Veins {{user `version`}}",
+        "--description", "Instant AirMobiSim {{user `version`}}",
         "--version", "{{user `version`}}"
       ]
     }
@@ -80,12 +80,12 @@
   "provisioners": [
     {
       "type": "shell",
-      "execute_command": "echo 'veins' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "echo 'airmobisim' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "script": "scripts/pre.sh"
     },
     {
       "type": "ansible-local",
-      "playbook_file": "ansible/instant-veins.yml",
+      "playbook_file": "ansible/instant-airmobisim.yml",
       "playbook_dir": "ansible",
       "extra_arguments": [
         "-e",
@@ -94,7 +94,7 @@
     },
     {
       "type": "shell",
-      "execute_command": "echo 'veins' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "echo 'airmobisim' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "script": "scripts/post.sh"
     }
   ]
