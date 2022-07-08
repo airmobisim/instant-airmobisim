@@ -45,7 +45,7 @@
 - name: Configure user
   user:
     name: airmobisim
-    comment: "airmobisim (password is airmobisim),,,"
+    comment: "Airmobisim (PW is airmobisim),,,"
     shell: /bin/zsh
     #password: "$6$nkDuo0SdUXR8Im$4g8tXbIruu1YLimqImncK0pQ2EDzMuQjBwt8QRxS9L11NxvYCZarFdLvCwK28S.pF7aG2QpwUlG9J5i9GkYZB0"
     password: "$y$j9T$J7etQ8SWZX0FcsKEMGbvI1$e55o./1.hyerW1I6hPW6fR4DWh5Rg/N6abPoPEer3C2"
