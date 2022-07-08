@@ -1,7 +1,7 @@
 #!/bin/bash
-echo "This script builds OMNeT++, SUMO and AirMobiSim. This step is required."
+echo "This script builds OMNeT++, SUMO, Veins, AirMobiSim and AirMobiSim_libveins. This step is required."
 read -p "Continue?" 
-echo "Please wait while OMNeT++, SUMO and AirMobiSim are being built..."
+
 
 source /home/airmobisim/.bashrc
 
@@ -40,9 +40,11 @@ git pull
 cd /home/airmobisim/src/AirMobiSim
 git pull
 source setenv
-./build.sh
+./build.sh -y
 
 # Clean up after installation was successful - Remove buildAll.desktop file
 rm -f /home/airmobisim/.config/autostart/buildAll.desktop
 
 echo "Successfully set up the Virtual Machine! You can now start using it."
+read -p "Press Enter to proceed." 
+exit

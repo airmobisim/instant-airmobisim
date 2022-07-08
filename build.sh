@@ -9,8 +9,8 @@ SET_VERSION_A=
 SET_VERSION_B=
 VERSION=$(git describe --tags --match 'instant-airmobisim-*' --always HEAD | sed -e 's/^instant-airmobisim-//' || echo -ne '')
 if test -n ${VERSION}; then
-	SET_VERSION_A="-var"
-	SET_VERSION_B="version=${VERSION}"
+	SET_VERSION_A="" #"-var"
+	SET_VERSION_B="" #"version=${VERSION}"
 fi
 
 packer build ${SET_VERSION_A} ${SET_VERSION_B} -on-error=ask instant-airmobisim.json
