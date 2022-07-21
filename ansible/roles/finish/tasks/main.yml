@@ -180,3 +180,11 @@
 #    dest: /home/airmobisim/workspace.omnetpp/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.ui.navigator.prefs
 #    mode: 0644
 
+- name: Remove bin folder
+  become_user: airmobisim
+  shell: |
+    set -exu
+    rm -rf /home/airmobisim/bin
+  args:
+    executable: /bin/bash
+    chdir: /home/airmobisim/src
