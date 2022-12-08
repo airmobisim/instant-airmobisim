@@ -57,8 +57,8 @@ cd /home/airmobisim/src/
 rm -rf AirMobiSim_libveins
 rm -rf AirMobiSim
 git clone --branch veins-5.2 https://github.com/sommer/veins.git veins
-git clone --branch v0.1 https://github.com/airmobisim/AirMobiSim_libveins
-git clone --branch v0.1 https://github.com/airmobisim/AirMobiSim.git
+git clone https://github.com/airmobisim/AirMobiSim_libveins
+git clone https://github.com/airmobisim/AirMobiSim.git
 
 # Import AirMobiSim_libveins into Workspace
 cd /home/airmobisim/src/AirMobiSim_libveins
